@@ -1,0 +1,9 @@
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch==2.6.0
+transformers>=4.30.0,<5  # 5.x changed tokenizer-loading and needs sentencepiece/tiktoken to convert Llama-3.1's slow tokenizer
+safetensors>=0.3.0
+huggingface-hub>=0.14.0
+flask>=2.3.0
+requests>=2.28.0
+pyyaml>=6.0
+accelerate>=1.0.0

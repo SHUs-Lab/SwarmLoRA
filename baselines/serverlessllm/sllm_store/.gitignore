@@ -1,0 +1,22 @@
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions (includes vendored libglog.so.* built by CMake -- see the
+# main README's setup note for the manual copy-into-place step)
+*.so
+*.so.*
+
+# Python packaging + CMake build output
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+.ruff_cache/

@@ -1,0 +1,39 @@
+[build-system]
+requires = [
+    "setuptools",
+    "wheel",
+    "cmake>=3.20,<4.0.0",
+    "ninja",
+    "torch>=2.7.0",
+    "numpy",
+]
+build-backend = "setuptools.build_meta"
+
+
+[tool.ruff]
+line-length = 80
+exclude = [
+    "sllm_store/proto",
+]
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    # "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    # "I",
+]
+ignore = []
+
+
+[tool.isort]
+use_parentheses = true
+skip_gitignore = true
