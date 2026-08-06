@@ -1,0 +1,7 @@
+cmake>=3.20,<4.0.0
+ninja
+numpy
+peft==0.17.1  # aligned with runtime pin; this build file isn't on setup.sh's runtime install path, but keep one PEFT version across the baseline
+setuptools
+torch==2.9.0
+wheel

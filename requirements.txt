@@ -1,0 +1,33 @@
+# Core ML
+torch==2.5.1
+transformers==4.57.3
+numpy==1.26.4
+safetensors==0.7.0
+huggingface-hub==0.36.0
+accelerate==1.10.1
+peft==0.17.1
+
+# Flash attention (via vllm) — tight version coupling with torch
+vllm==0.6.6.post1
+xformers==0.0.28.post3
+
+# Web servers
+fastapi==0.128.0
+uvicorn==0.39.0
+Flask==3.1.2
+
+# HTTP clients
+aiohttp==3.13.3
+requests==2.32.5
+
+# Data validation (used directly in controller/cluster)
+pydantic==2.12.5
+
+# Config parsing (cluster model config)
+PyYAML==6.0.3
+
+# C++ extension build
+ninja==1.13.0
+
+# Analysis / figure generation (analysis/*.py)
+matplotlib==3.9.2

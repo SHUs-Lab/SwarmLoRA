@@ -1,0 +1,10 @@
+sless-venv/
+__pycache__/
+*.pyc
+*.pyo
+*.so
+build/
+*.egg-info/
+.pytest_cache/
+logs/
+*.log
