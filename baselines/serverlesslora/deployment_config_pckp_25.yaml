@@ -1,0 +1,98 @@
+cluster_name: "serverless-lora-4gpu-10func-pckp-25"
+base_model: "llama-3.1-8b"
+log_dir: "logs"
+
+controller:
+  host: "localhost"
+  port: 8000
+  routing: "preload_score"
+  enable_preload: true
+  enable_offload: true
+  # spawn enabled — on-demand containers created when pool exhausted
+
+preload_scheduler:
+  host: "localhost"
+  port: 7100
+  interval_ms: 1000
+
+# Single-node deployment (this baseline is never run multi-node -- see the
+# paper's setup.tex, which only puts SwarmLoRA's own scalability/overhead
+# experiments on a 2-node cluster). GPUs are all local to this one host.
+hostname: "localhost"
+gpu_memory_mb: 49140.0
+container_memory_mb: 65536.0
+gpus:
+  - device_id: 0
+    base_model_server_port: 50050
+    agent_port: 7000
+    worker_base_port: 6000
+  - device_id: 1
+    base_model_server_port: 50051
+    agent_port: 7001
+    worker_base_port: 6100
+  - device_id: 2
+    base_model_server_port: 50052
+    agent_port: 7002
+    worker_base_port: 6200
+  - device_id: 3
+    base_model_server_port: 50053
+    agent_port: 7003
+    worker_base_port: 6300
+
+# PW-20 + 22 workers/GPU cap (matches SwarmLoRA's MAX_WORKERS_PER_GPU for a
+# same-capacity comparison -- file kept as pckp_25 for path stability).
+# 250ms batch window, max batch 16, LIFO queue; requests are dropped once they
+# can no longer meet the shared SLO (src/controller/admission.py).
+# No deferred queue-level batching.
+functions:
+  - function_id: "lora_0"
+    adapter: "../../../sim-adapters/pool-10-r16/lora-0"
+    slo_ms: 2000.0
+    containers: 0
+  - function_id: "lora_1"
+    adapter: "../../../sim-adapters/pool-10-r16/lora-1"
+    slo_ms: 2000.0
+    containers: 0
+  - function_id: "lora_2"
+    adapter: "../../../sim-adapters/pool-10-r16/lora-2"
+    slo_ms: 2000.0
+    containers: 0
+  - function_id: "lora_3"
+    adapter: "../../../sim-adapters/pool-10-r16/lora-3"
+    slo_ms: 2000.0
+    containers: 0
+  - function_id: "lora_4"
+    adapter: "../../../sim-adapters/pool-10-r16/lora-4"
+    slo_ms: 2000.0
+    containers: 20   # small warm pool
+  - function_id: "lora_5"
+    adapter: "../../../sim-adapters/pool-10-r16/lora-5"
+    slo_ms: 2000.0
+    containers: 0
+  - function_id: "lora_6"
+    adapter: "../../../sim-adapters/pool-10-r16/lora-6"
+    slo_ms: 2000.0
+    containers: 0
+  - function_id: "lora_7"
+    adapter: "../../../sim-adapters/pool-10-r16/lora-7"
+    slo_ms: 2000.0
+    containers: 0
+  - function_id: "lora_8"
+    adapter: "../../../sim-adapters/pool-10-r16/lora-8"
+    slo_ms: 2000.0
+    containers: 0
+  - function_id: "lora_9"
+    adapter: "../../../sim-adapters/pool-10-r16/lora-9"
+    slo_ms: 2000.0
+    containers: 0
+
+defaults:
+  keep_alive_ms: 3600000
+  max_batch_size: 16
+  max_new_tokens: 1024
+  max_workers_per_gpu: 22
+  containers_per_function: 0
+  profile_prompt_tokens: 128
+  slo_ms: 2000
+  base_ttft_ms: 400
+  marginal_cost_ms: 50

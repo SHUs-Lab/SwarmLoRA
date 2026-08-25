@@ -1,0 +1,12 @@
+__pycache__/
+.pyc
+build
+dist
+*.egg-info
+.idea
+*.swp
+*.so
+.DS_Store
+# NOTE (SwarmLoRA artifact): upstream S-LoRA's own .gitignore ignored
+# *.json/*.jsonl/*.pdf here. Removed — benchmark_results/*.json under this
+# directory is reference data we deliberately keep and ship.
